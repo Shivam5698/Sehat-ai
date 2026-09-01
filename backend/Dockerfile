@@ -1,11 +1,8 @@
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
-# Update npm to latest version (fixes edgesOut bug)
-RUN npm install -g npm@latest
-
-# Copy only backend package files
+# Copy package files
 COPY package.json package-lock.json* ./
 
 # Install dependencies
@@ -21,15 +18,12 @@ RUN npm run prisma:generate
 RUN npm run build
 
 # Production image
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
 # Install curl for health checks
 RUN apk add --no-cache curl
-
-# Update npm to latest version
-RUN npm install -g npm@latest
 
 # Copy package files
 COPY package.json ./
