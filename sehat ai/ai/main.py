@@ -18,10 +18,16 @@ app = FastAPI(title="SehatAgent AI Service", version="1.0.0")
 # Initialize OpenAI
 openai.api_key = os.getenv('OPENAI_API_KEY', '')
 
-# Initialize RAG
-rag_pipeline = RAGPipeline()
+# Initialize RAG (Ensure RAGPipeline handles environment variables or local fallback safely)
+try:
+    rag_pipeline = RAGPipeline()
+except Exception as e:
+    logger.error(f"Failed to initialize RAGPipeline: {e}")
+    rag_pipeline = None
 
 def build_medical_context(query: str, language: str = 'en', emergency: bool = False) -> str:
+    if not rag_pipeline:
+        return ''
     try:
         rag_result = rag_pipeline.retrieve_context(query, language=language, emergency=emergency)
         snippets = []
@@ -463,6 +469,8 @@ Text: {payload.text}"""
 
 @app.post("/rag/search")
 async def rag_search(payload: RagSearchInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         result = rag_pipeline.retrieve_context(payload.query, language=payload.language, emergency=payload.emergency)
         return {"ok": True, "data": result}
@@ -472,6 +480,8 @@ async def rag_search(payload: RagSearchInput):
 
 @app.post("/rag/context")
 async def rag_context(payload: MedicalRetrieveInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         result = rag_pipeline.retrieve_context(payload.query, language=payload.language)
         return {"ok": True, "context": result}
@@ -481,6 +491,8 @@ async def rag_context(payload: MedicalRetrieveInput):
 
 @app.post("/rag/emergency")
 async def rag_emergency(payload: RagSearchInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         result = rag_pipeline.retrieve_context(payload.query, language=payload.language, emergency=True)
         return {"ok": True, "context": result}
@@ -490,6 +502,8 @@ async def rag_emergency(payload: RagSearchInput):
 
 @app.post("/rag/multilingual")
 async def rag_multilingual(payload: MedicalRetrieveInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         result = rag_pipeline.retrieve_context(payload.query, language=payload.language)
         return {"ok": True, "context": result}
@@ -499,6 +513,8 @@ async def rag_multilingual(payload: MedicalRetrieveInput):
 
 @app.post("/medical/retrieve")
 async def medical_retrieve(payload: MedicalRetrieveInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         result = rag_pipeline.retrieve_context(payload.query, language=payload.language)
         return {"ok": True, "data": result}
@@ -508,6 +524,8 @@ async def medical_retrieve(payload: MedicalRetrieveInput):
 
 @app.post("/medical/validate")
 async def medical_validate(payload: MedicalValidateInput):
+    if not rag_pipeline:
+        raise HTTPException(status_code=500, detail="RAG Pipeline not initialized")
     try:
         context = rag_pipeline.retrieve_context(payload.query, language=payload.language)
         return {
@@ -560,7 +578,7 @@ Respond with a JSON object:
 
         return {
             "ok": True,
-            "advice": result.get("advice", []),
+            "advice": result.data.get("advice", []) if isinstance(result, dict) else result.get("advice", []),
             "explanation": result.get("explanation", ""),
             "confidence": result.get("confidence", 0.5),
         }
@@ -590,19 +608,9 @@ async def root():
     return {
         "service": "SehatAgent AI Service",
         "version": "1.0.0",
-        "status": "running",
-        "endpoints": {
-            "symptom_extraction": "POST /agents/symptom",
-            "severity_assessment": "POST /agents/severity",
-            "safety_check": "POST /agents/safety",
-            "hospital_finding": "POST /agents/hospital",
-            "appointment_advice": "POST /agents/appointment",
-            "report_generation": "POST /agents/report",
-            "translation": "POST /agents/translate"
-        }
+        "status": "running"
     }
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
