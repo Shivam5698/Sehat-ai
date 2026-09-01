@@ -16,14 +16,17 @@ async function verifyDependencies() {
   }
 
   try {
-    const pong = await redisClient.ping();
-    if (pong === 'PONG') {
-      console.log('Redis Connected');
-    } else {
-      console.warn('Redis ping did not return PONG:', pong);
+    // Check if redisClient exists before pinging to prevent crashes
+    if (redisClient && typeof redisClient.ping === 'function') {
+      const pong = await redisClient.ping();
+      if (pong === 'PONG') {
+        console.log('Redis Connected');
+      } else {
+        console.warn('Redis ping did not return PONG:', pong);
+      }
     }
   } catch (error) {
-    console.error('Redis connection failure:', error);
+    console.warn('Redis connection skipped or failed (safe mode):', error instanceof Error ? error.message : String(error));
   }
 
   try {
