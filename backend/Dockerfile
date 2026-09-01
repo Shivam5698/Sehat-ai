@@ -3,10 +3,10 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install --production=false
 
 # Copy source code
 COPY . .
@@ -26,10 +26,10 @@ WORKDIR /app
 RUN apk add --no-cache curl
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
 
 # Install production dependencies only
-RUN npm ci --production && npm cache clean --force
+RUN npm install --production=true && npm cache clean --force
 
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
