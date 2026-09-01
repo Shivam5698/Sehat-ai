@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1a0e5e9cf0590943998e7da0f89aec26137ecc3019b6e7e4c9d7ed6ff6c22c3a
-size 391
+[
+  {
+    "name": "Hypertension",
+    "category": "Cardiovascular",
+    "description": "A chronic condition characterized by consistently elevated blood pressure.",
+    "severity": "medium"
+  },
+  {
+    "name": "Acute Bronchitis",
+    "category": "Respiratory",
+    "description": "Inflammation of the bronchial tubes leading to cough and difficulty breathing.",
+    "severity": "low"
+  }
+]

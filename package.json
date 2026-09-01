@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b31cd197f4bd6f991d81a102128f11220d36db9481f69f907c4819905f5bddcb
-size 586
+{
+  "name": "sehat-ai",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "ai"
+  ],
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev": "npm run dev:frontend",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:backend": "npm --prefix backend run build",
+    "build": "npm run build:frontend && npm run build:backend",
+    "start": "npm --prefix backend run start",
+    "lint": "npm --prefix frontend run lint"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.1"
+  }
+}

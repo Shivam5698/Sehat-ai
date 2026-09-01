@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:43d59c3a43b14429bb6bb5519b14d05449b114b95e86bca856bb1984c5b325bf
-size 431
+[
+  {
+    "hospitalName": "Sehat General Hospital",
+    "location": "New Delhi, India",
+    "specialties": "Emergency, Cardiology, General Medicine",
+    "emergencyAvailable": true,
+    "contact": "+91-1122334455"
+  },
+  {
+    "hospitalName": "MediCare Multispecialty",
+    "location": "Mumbai, India",
+    "specialties": "Orthopedics, Neurology, Pediatrics",
+    "emergencyAvailable": false,
+    "contact": "+91-9988776655"
+  }
+]

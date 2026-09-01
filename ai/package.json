@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0b4ecc1c37e0fc4cd59bf50cb1c9c101aaeb1e4cb646113a223dac22db2df800
-size 744
+{
+  "name": "sehat-ai-foundation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "@prisma/client": "6.11.0",
+    "@qdrant/js-client-rest": "1.18.0",
+    "ajv": "8.20.0",
+    "axios": "^1.17.0",
+    "csv-parse": "6.0.0",
+    "dotenv": "16.3.1",
+    "express": "4.22.2",
+    "i18next-http-backend": "4.0.0",
+    "ioredis": "5.3.2",
+    "mammoth": "^1.12.0",
+    "mongodb": "5.9.0",
+    "pdf-parse": "1.1.1",
+    "pg": "8.14.0",
+    "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.11.0",
+    "typescript": "5.5.4",
+    "vitest": "^4.1.8"
+  }
+}

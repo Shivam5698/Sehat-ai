@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3e878e473c9b592c589017c9b138cff580ee3c70fa191e0222bedc735ccdb332
-size 474
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "node16",
+    "ignoreDeprecations": "6.0",
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

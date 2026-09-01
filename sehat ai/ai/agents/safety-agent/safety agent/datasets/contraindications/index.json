@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:19ff3738c8bfb5b4596b3f6a8ad93d03094a263e51f1895ab8c381eac4987d42
-size 204
+[
+  "Ignore severe chest pain",
+  "Delay emergency care",
+  "Self-diagnose serious condition",
+  "Avoid medical review for serious symptoms",
+  "Ignore shortness of breath",
+  "Ignore seizure symptoms"
+]

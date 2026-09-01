@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6c23806fd8beb3f5f4b4e19a3742e189e7baa3691ab2eb5a577585ba6ddc24a2
-size 697
+{
+  "eyebrow": "Autonomous Care",
+  "title": "AI is finding your best care, right now",
+  "subtitle": "Hospitals, doctors and appointments — all matched and booked by intelligent agents.",
+  "nearestHospitals": "Nearest Hospitals",
+  "recommendedDoctors": "Recommended Doctors",
+  "bookNow": "Book Now",
+  "viewDetails": "View Details",
+  "activities": [
+    "AI searching nearest hospitals…",
+    "AI checking real-time appointment slots…",
+    "AI matching specialist to your symptoms…",
+    "AI confirming insurance and pricing…",
+    "AI booking appointment automatically…"
+  ],
+  "emergency": "Emergency",
+  "bookingConfirmation": "Booking Confirmation",
+  "confirm": "Confirm"
+}

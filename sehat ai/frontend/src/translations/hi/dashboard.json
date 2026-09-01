@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c4f1b80ed65235816551b6be1252bb78cc4876574974bb7cd01e7746f091a7ab
-size 445
+{
+  "liveMonitoring": "लाइव मॉनिटरिंग",
+  "multiAgentActivity": "मल्टी-एजेंट एक्टिविटी डैशबोर्ड",
+  "subtitle": "आपकी परामर्श के दौरान हर एजेंट के तर्क का वास्तविक समय दृश्य।",
+  "riskHigh": "High Risk",
+  "riskModerate": "Moderate Risk",
+  "riskLow": "Low Risk"
+}
