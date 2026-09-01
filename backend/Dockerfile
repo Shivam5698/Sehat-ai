@@ -2,11 +2,14 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json ./
+# Update npm to latest version (fixes edgesOut bug)
+RUN npm install -g npm@latest
+
+# Copy only backend package files
+COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN npm install --production=false --no-save
+RUN npm install --omit=dev
 
 # Copy source code
 COPY . .
@@ -25,11 +28,14 @@ WORKDIR /app
 # Install curl for health checks
 RUN apk add --no-cache curl
 
+# Update npm to latest version
+RUN npm install -g npm@latest
+
 # Copy package files
 COPY package.json ./
 
-# Install production dependencies only
-RUN npm install --production=true --no-save && npm cache clean --force
+# Install production dependencies
+RUN npm install --omit=dev && npm cache clean --force
 
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
