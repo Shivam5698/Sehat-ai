@@ -20,6 +20,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   consultations Consultation[]
+  patientProfile PatientProfile?
+  auditLogs      AuditLog[]
 }
 
 model Consultation {
@@ -43,6 +45,11 @@ model Consultation {
   agentLogs    AgentLog[]
   emergencyEvents EmergencyEvent[]
   createdAt    DateTime @default(now())
+  safetyAlerts   SafetyAlert[]
+  medicalReports MedicalReport[]
+  videoSessions  VideoSession[]
+  riskScore      RiskScore?
+  emergencyCases EmergencyCase[]
 }
 
 model Transcript {
