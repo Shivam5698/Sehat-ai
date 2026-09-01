@@ -78,6 +78,32 @@ vite.svg
 
 *.tsbuildinfo
 
+# Large dataset files (keep locally, not in git)
+ai/datasets/**/*.json
+ai/datasets/**/*.csv
+ai/datasets/**/*.parquet
+ai/datasets/**/*.pkl
+ai/datasets/**/*.pt
+ai/datasets/**/*.pth
+ai/embeddings/cache/
+ai/embeddings/models/
+
+# Database volumes
+postgres-data/
+mongodb-data/
+redis-data/
+qdrant-data/
+
+# Model files
+*.h5
+*.onnx
+*.pb
+*.safetensors
+
+# Docker artifacts
+.dockerignore
+docker-compose.override.yml
+
 
 docker-data/
 docker-volumes/
