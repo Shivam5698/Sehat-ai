@@ -8,6 +8,7 @@ from datetime import datetime
 import logging
 
 from rag.pipelines.rag_pipeline import RAGPipeline
+from bootstrap import ai_bootstrap
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -17,6 +18,23 @@ app = FastAPI(title="SehatAgent AI Service", version="1.0.0")
 
 # Initialize OpenAI
 openai.api_key = os.getenv('OPENAI_API_KEY', '')
+
+# Initialize RAG
+rag_pipeline = RAGPipeline()
+
+# Startup event - initialize datasets
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Starting AI service...")
+    try:
+        await ai_bootstrap.initialize()
+        logger.info("AI service ready")
+    except Exception as e:
+        logger.error(f"Failed to initialize AI service: {e}", exc_info=True)
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    logger.info("Shutting down AI service")
 
 # Initialize RAG
 rag_pipeline = RAGPipeline()

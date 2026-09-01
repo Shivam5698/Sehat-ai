@@ -218,3 +218,19 @@ model EmergencyCase {
   outcome        String?
   reportedAt     DateTime      @default(now())
 }
+
+model Dataset {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  category    String   // e.g., "symptoms", "diseases", "emergency-cases", "symptom-disease"
+  description String?
+  language    String   @default("en")
+  data        String   @db.Text // JSON string containing the dataset records
+  source      String?  // URL or source of the dataset
+  recordCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([language])
+}

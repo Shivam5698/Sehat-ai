@@ -12,9 +12,11 @@ import { reportRouter } from './routes/reports.js';
 import { emergencyRouter } from './routes/emergency.js';
 import { ragRouter } from './routes/rag.js';
 import { medicalRouter } from './routes/medical.js';
+import { datasetRouter } from './routes/datasets.js';
 import { prisma } from './database/client.js';
 import { healthRouter } from './routes/health.routes.js';
 import { languageMiddleware } from './middleware/language.js';
+import { seedDatasets } from './utils/dataset-seeder.js';
 
 const app = express();
 
@@ -38,6 +40,10 @@ app.use('/api/reports', reportRouter);
 app.use('/api/emergency', emergencyRouter);
 app.use('/api/rag', ragRouter);
 app.use('/api/medical', medicalRouter);
+app.use('/api/datasets', datasetRouter);
 app.use('/api/trugen', trugenRouter);
+
+// Seed datasets on startup (non-blocking)
+seedDatasets().catch(err => console.error('Failed to seed datasets:', err));
 
 export default app;
